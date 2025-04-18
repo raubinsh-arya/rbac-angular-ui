@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, IRowNode } from 'ag-grid-community';
 import { Store } from '@ngrx/store';
 import { RoleType } from '../../../models/role.model';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -58,5 +58,8 @@ export class SharedAddPermissionsRoleComponent {
         id: this.dialogData.userId,
       })
     );
+  }
+  public isRowSelectable(nodes: IRowNode<PermissionType>): boolean {
+    return nodes.data?.allowed === true;
   }
 }

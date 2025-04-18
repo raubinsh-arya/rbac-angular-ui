@@ -1,7 +1,7 @@
 <ng-container
   *ngxPermissionsOnly="['add_user_permissions', 'root_admin']; else noAccess"
 >
-  <h4 mat-dialog-title>Add Permissions</h4>
+  <h4 mat-dialog-title>Add Permissionss</h4>
   <mat-dialog-content class="dialog-content">
     <ag-grid-table
       [colDefs]="colDefs"
@@ -9,6 +9,7 @@
       rowSelection="multiple"
       [pagination]="true"
       (selectedRows)="onRowSelectionChange($event)"
+      [isRowSelectable]="isRowSelectable"
     >
     </ag-grid-table>
   </mat-dialog-content>

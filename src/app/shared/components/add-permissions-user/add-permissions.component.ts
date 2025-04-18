@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, IRowNode } from 'ag-grid-community';
 import { Store } from '@ngrx/store';
 import {
   addPermissionsToUser,
@@ -58,5 +58,8 @@ export class SharedAddPermissionsComponent {
         userId: this.dialogData.userId,
       })
     );
+  }
+  public isRowSelectable(nodes: IRowNode<PermissionType>): boolean {
+    return nodes.data?.allowed === true;
   }
 }

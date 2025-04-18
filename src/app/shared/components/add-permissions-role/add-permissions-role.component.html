@@ -6,6 +6,7 @@
     rowSelection="multiple"
     [pagination]="true"
     (selectedRows)="onRowSelectionChange($event)"
+    [isRowSelectable]="isRowSelectable"
   >
   </ag-grid-table>
 </mat-dialog-content>
