@@ -52,11 +52,12 @@ export class UserGridComponent implements OnInit {
   public createUser() {
     this.dialog.open(AddUserComponent, { minWidth: 700, minHeight: 350 });
   }
-  public deleteUsers() {
-    this.store.dispatch(deleteUsers({ userIds: this.selectedRows }));
+  public async deleteUsers() {
+    if (await this.ngxPermission.hasPermission(['root_admin', 'delete_users']))
+      this.store.dispatch(deleteUsers({ userIds: this.selectedRows }));
   }
 
   public isRowSelectable(nodes: IRowNode<UserProfileResponseType>): boolean {
-    return nodes.data?.id !== 1;
+    return nodes.data?.id != 1;
   }
 }
