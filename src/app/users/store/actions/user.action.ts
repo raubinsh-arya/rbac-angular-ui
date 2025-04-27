@@ -129,3 +129,29 @@ export const deletePermissionsToUserFailed = createAction(
   '[USERS][DELETE][PERMISSIONS][USER][FAILED] DELETE PERMISSIONS TO USER FAILED',
   props<{ error: string }>()
 );
+//create user
+export const createUser = createAction(
+  '[USERS][CREATE] CREATE USER',
+  props<{ user: UserProfileResponseType }>()
+);
+export const createUserSuccess = createAction(
+  '[USERS][CREATE][SUCCESS] CREATE USER SUCCESS',
+  props<{ user: UserProfileResponseType }>()
+);
+export const createUserFailed = createAction(
+  '[USERS][CREATE][FAILED] CREATE USER FAILED',
+  props<{ error: string }>()
+);
+//delete users
+export const deleteUsers = createAction(
+  '[USERS][DELETE] DELETE TO USERS',
+  props<{ userIds: Array<number> }>()
+);
+export const deleteUsersSuccess = createAction(
+  '[USERS][DELETE][SUCCESS] DELETE TO USERS SUCCESS',
+  props<{ permissions: Array<RoleType> }>()
+);
+export const deleteUsersFailed = createAction(
+  '[USERS][DELETE][FAILED] DELETE TO USERS FAILED',
+  props<{ error: string }>()
+);

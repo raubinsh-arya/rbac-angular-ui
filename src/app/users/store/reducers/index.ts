@@ -13,6 +13,7 @@ import {
   userPermissionsReducer,
   UserPermissionsState,
 } from './user-permissions.reducer';
+import { createUserReducer, CreateUsersState } from './create-user.reducer';
 
 export interface UsersRootState {
   users: UsersState;
@@ -20,6 +21,7 @@ export interface UsersRootState {
   userPermissions: UserPermissionsState;
   roles: RolesState;
   permissions: PermissionsState;
+  createUser: CreateUsersState
 }
 
 export const usersRootreducers: ActionReducerMap<UsersRootState> = {
@@ -28,4 +30,5 @@ export const usersRootreducers: ActionReducerMap<UsersRootState> = {
   userPermissions: userPermissionsReducer,
   roles: rolesReducer,
   permissions: permissionsReducer,
+  createUser: createUserReducer
 };

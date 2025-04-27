@@ -5,11 +5,21 @@
   <div class="users-list-header">
     <span>Users List</span>
     <div class="button-group">
-      <button mat-icon-button class="delete-btn">
+      <button
+        mat-icon-button
+        class="delete-btn"
+        (click)="deleteUsers()"
+        [disabled]="!selectedRows.length"
+        *ngxPermissionsOnly="['delete_users', 'root_admin']; else deleteElse"
+      >
         <mat-icon>delete</mat-icon>
         Remove
       </button>
-      <button mat-icon-button>
+      <button
+        mat-icon-button
+        (click)="createUser()"
+        *ngxPermissionsOnly="['create_user', 'root_admin']; else addElse"
+      >
         <mat-icon>person_add</mat-icon>
         Add
       </button>
@@ -21,10 +31,37 @@
     [colDefs]="colDefs"
     [rowData]="rowData"
     (cellValueChangedEvent)="onCellValueChanged($event)"
+    (selectedRows)="onSelectionChanged($event)"
+    [isRowSelectable]="isRowSelectable"
+    rowSelection="multiple"
   >
   </ag-grid-table>
 </div>
 
 <ng-template #noAccess>
   <app-unauthorized></app-unauthorized>
+</ng-template>
+<ng-template #deleteElse>
+  <span
+    matTooltip="You don't have permission"
+    matTooltipPosition="above"
+    matTooltipShowDelay="200"
+  >
+    <button mat-icon-button class="delete-btn" disabled>
+      <mat-icon>delete</mat-icon>
+      Remove
+    </button>
+  </span>
+</ng-template>
+<ng-template #addElse>
+  <span
+    matTooltip="You don't have permission"
+    matTooltipPosition="above"
+    matTooltipShowDelay="200"
+  >
+    <button mat-icon-button disabled>
+      <mat-icon>person_add</mat-icon>
+      Add
+    </button>
+  </span>
 </ng-template>

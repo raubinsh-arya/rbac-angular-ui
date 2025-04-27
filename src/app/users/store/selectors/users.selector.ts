@@ -57,3 +57,22 @@ export const selectUserPermissionsError = createSelector(
   selectUserPermissionsState,
   (state) => state.error
 );
+
+//create User
+export const createUserState = createSelector(
+  selectUsersRootState,
+  (state) => state.createUser
+);
+
+export const selectCreateUserLoading = createSelector(
+  createUserState,
+  (state) => state.loading
+);
+export const selectCreateUserSuccess = createSelector(
+  createUserState,
+  (state) => state.user
+);
+export const selectCreateUserError = createSelector(
+  createUserState,
+  (state) => state.error
+);

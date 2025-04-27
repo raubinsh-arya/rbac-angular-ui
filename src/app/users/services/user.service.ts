@@ -89,6 +89,19 @@ export class UsersService {
       })
       .pipe(catchError(this.handleError));
   }
+  public createUser(user: UserProfileResponseType): Observable<any> {
+    console.info(user, 'here we go');
+    return this.api
+      .postData(`/api/v1/admin/user`, user)
+      .pipe(catchError(this.handleError));
+  }
+  public deleteUsers(userIds: Array<number>): Observable<any> {
+    return this.api
+      .deleteData(`/api/v1/admin/users`, {
+        userIds,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   handleError = (errors: string) => {
     if (Array.isArray(errors)) {

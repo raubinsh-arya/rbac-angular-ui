@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
   addPermissionsToUser,
   addPermissionsToUserFailed,
   addRolesToUser,
   addRolesToUserFailed,
+  createUser,
+  createUserFailed,
+  createUserSuccess,
   deletePermissionsToUser,
   deletePermissionsToUserFailed,
   deleteRolesToUser,
   deleteRolesToUserFailed,
+  deleteUsers,
+  deleteUsersFailed,
   fetchUserPermissions,
   fetchUserPermissionsFailed,
   fetchUserPermissionsSuccess,
@@ -45,6 +56,7 @@ export class UsersEffect {
       )
     )
   );
+
   fetchUserRoles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchUserRoles),
@@ -58,6 +70,7 @@ export class UsersEffect {
       )
     )
   );
+
   addRolesToUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addRolesToUser),
@@ -71,6 +84,7 @@ export class UsersEffect {
       )
     )
   );
+
   deleteRolesToUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteRolesToUser),
@@ -84,6 +98,7 @@ export class UsersEffect {
       )
     )
   );
+
   fetchUserPermissions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchUserPermissions),
@@ -99,6 +114,7 @@ export class UsersEffect {
       )
     )
   );
+
   addPermissionsToUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addPermissionsToUser),
@@ -114,6 +130,7 @@ export class UsersEffect {
       )
     )
   );
+
   deletePermissionsToUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deletePermissionsToUser),
@@ -129,6 +146,7 @@ export class UsersEffect {
       )
     )
   );
+
   updateUsersStatus$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateUserStatus),
@@ -139,6 +157,37 @@ export class UsersEffect {
           }),
           catchError((error) =>
             of(updateUserStatusFailed({ error: error }), fetchUsers())
+          )
+        )
+      )
+    )
+  );
+
+  createUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createUser),
+      exhaustMap(({ user }) =>
+        this.usersService.createUser(user).pipe(
+          concatMap((createdUser) => [
+            createUserSuccess({ user: createdUser }),
+            fetchUsers(),
+          ]),
+          catchError((error) => of(createUserFailed({ error }), fetchUsers()))
+        )
+      )
+    )
+  );
+
+  deleteUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteUsers),
+      exhaustMap(({ userIds }) =>
+        this.usersService.deleteUsers(userIds).pipe(
+          map(() => {
+            return fetchUsers();
+          }),
+          catchError((error) =>
+            of(deleteUsersFailed({ error: error }), fetchUsers())
           )
         )
       )

@@ -1,0 +1,57 @@
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 0.2rem;
+}
+
+.dialog-title {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+  padding: unset;
+  padding-block: 0.7rem;
+  padding-inline: 1.25rem;
+  font-weight: 500;
+
+  button {
+    color: black;
+  }
+  &::before {
+    display: none;
+  }
+}
+.mat-mdc-dialog-content {
+  padding-inline: 1.25rem;
+  display: flex !important;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100% !important;
+}
+
+.mat-mdc-dialog-actions {
+  padding-block: 0 !important;
+}
+
+:host {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1;
+  mat-dialog-actions button {
+    border-radius: 0.2rem;
+    height: 2rem;
+  }
+
+  ::ng-deep .mat-mdc-progress-spinner div svg{
+    stroke: white !important;
+  }
+
+  h4 {
+    font-weight: 500 !important;
+  }
+}
+
+.user-form-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}

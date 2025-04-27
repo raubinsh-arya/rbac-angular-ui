@@ -54,5 +54,8 @@
 
   & .delete-btn {
     background-color: rgb(174, 22, 22) !important;
+    &:disabled {
+      background-color: gray !important;
+    }
   }
 }

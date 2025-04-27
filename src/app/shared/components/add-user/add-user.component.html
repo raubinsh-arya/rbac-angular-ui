@@ -1,0 +1,72 @@
+<ng-container
+  *ngxPermissionsOnly="['create_user', 'root_admin']; else noAccess"
+>
+  <h4 mat-dialog-title>Create User</h4>
+  <mat-dialog-content class="dialog-content">
+    <form [formGroup]="userForm" class="user-form-container">
+      <mat-form-field appearance="outline" label="First Name">
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Middle Name">
+        <input matInput formControlName="middleName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Last Name">
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Email">
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Mobile">
+        <input matInput formControlName="mobile" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Password">
+        <input matInput formControlName="password" type="password" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" label="Confirm Password">
+        <input
+          matInput
+          formControlName="password_confirmation"
+          type="password"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" label="Status">
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of statusOptions" [value]="status">{{
+            status | titlecase
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div
+      *ngIf="userForm.getError('passwordMismatch') && userForm.touched"
+      style="color: red"
+    >
+      Password do not match
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button
+      mat-icon-button
+      class="icon-btn"
+      [disabled]="!userForm.valid || loading"
+      (click)="onSubmit()"
+    >
+      Create @if (loading) {
+      <mat-spinner diameter="25"></mat-spinner>
+      } @else {
+      <mat-icon color="secondary">check_circle</mat-icon>
+      }
+    </button>
+  </mat-dialog-actions>
+</ng-container>
+
+<ng-template #noAccess>
+  <app-unauthorized></app-unauthorized>
+</ng-template>
