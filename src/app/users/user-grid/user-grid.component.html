@@ -1,6 +1,9 @@
 <div
   class="users-list-container"
-  *ngxPermissionsOnly="['view_users', 'root_admin']; else noAccess"
+  *ngxPermissionsOnly="
+    ['root_admin', 'view_users', 'create_user', 'delete_users'];
+    else noAccess
+  "
 >
   <div class="users-list-header">
     <span>Users List</span>
@@ -27,6 +30,10 @@
   </div>
 
   <ag-grid-table
+    *ngxPermissionsOnly="
+      ['view_users', 'delete_users', 'root_admin'];
+      else noAccess
+    "
     [pagination]="true"
     [colDefs]="colDefs"
     [rowData]="rowData"

@@ -15,7 +15,14 @@ export const routes: Routes = [
     canActivate: [ACLGuard, NgxPermissionGuard],
     data: {
       permissions: {
-        only: ['view_users', 'view_roles', 'view_permissions', 'root_admin'],
+        only: [
+          'view_users',
+          'view_roles',
+          'view_permissions',
+          'root_admin',
+          'create_user',
+          'delete_users',
+        ],
         redirectTo: 'unauthorized',
       },
     },

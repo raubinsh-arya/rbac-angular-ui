@@ -37,7 +37,7 @@ export class UserGridComponent implements OnInit {
 
   ngOnInit() {
     this.ngxPermission
-      .hasPermission(['view_users', 'root_admin'])
+      .hasPermission(['view_users', 'root_admin', 'delete_users'])
       .then((has) => {
         if (has) this.store.dispatch(fetchUsers());
       });
